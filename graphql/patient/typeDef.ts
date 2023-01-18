@@ -30,6 +30,7 @@ type Mutation{
 
 type Query {
     greet : String!
+    getPatient(id: Int!):partner!
     getPatients:[partner]
 }
 

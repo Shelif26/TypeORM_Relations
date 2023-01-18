@@ -5,7 +5,6 @@ import { Patient } from "../Entity/Patient";
 const users = UserData.getRepository(Patient);
 const details = UserData.getRepository(Partner);
 
-
 class PatientService {
   public static greet() {
     return "<------------hello------------>";
@@ -16,9 +15,16 @@ class PatientService {
     partner.details = create_PP;
     await details.save(partner);
     console.log(partner);
-    return "created SucessFully!";
-   
-    
+    return "Created successfully";
+  }
+
+  public static async getPatient(id: number) {
+    const user = await details
+      .createQueryBuilder("Partner")
+      .leftJoinAndSelect("Partner.details", "patients")
+      .where("Partner.details = :detailsId", { detailsId: id })
+      .getOne();
+    return user;
   }
 
   public static async getPatients() {
@@ -29,11 +35,11 @@ class PatientService {
     return patients;
   }
 
-  public static async deletePatient(id: number){
-    const delPatient:any = await users.findOne({where: {id: id}});
-    users.delete(delPatient)
-    return "deleted Sucessfully!"
-}
+  public static async deletePatient(id: number) {
+    const delPatient: any = await users.findOne({ where: { id: id } });
+    users.delete(delPatient);
+    return "deleted Sucessfully!";
+  }
 }
 
 export default PatientService;

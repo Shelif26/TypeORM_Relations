@@ -5,9 +5,12 @@ const PatientResolver = {
     greet() {
       return PatientService.greet();
     },
-    getPatients(){
-      return PatientService.getPatients()
-    }
+    getPatient(parent: any, args:any, context:any) {
+      return PatientService.getPatient(args.id);
+    },
+    getPatients() {
+      return PatientService.getPatients();
+    },
   },
   Mutation: {
     createPatient(parent: any, args: any, context: any) {
@@ -15,9 +18,9 @@ const PatientResolver = {
       const par = args.partner;
       return PatientService.createPatient(pat, par);
     },
-    deletePatient(parent:any, args:any, context:any){
-      return PatientService.deletePatient(args.id)
-  }
+    deletePatient(parent: any, args: any, context: any) {
+      return PatientService.deletePatient(args.id);
+    },
   },
 };
 export default PatientResolver;
